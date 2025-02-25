@@ -1,14 +1,14 @@
 import os
 import streamlit as st
 from dotenv import load_dotenv
+import pinecone
+import time
 from langchain_openai import ChatOpenAI, OpenAIEmbeddings
 from langchain_community.document_loaders import PyPDFLoader
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain_community.vectorstores import Pinecone as PineconeVectorStore
 from langchain.chains import RetrievalQA
 from langchain_core.prompts import PromptTemplate
-from pinecone import Pinecone, ServerlessSpec
-import time
 
 # ✅ Load environment variables
 load_dotenv()
@@ -23,20 +23,20 @@ if not PINECONE_API_KEY or not OPENAI_API_KEY:
     st.stop()
 
 # ✅ Initialize Pinecone
-pc = Pinecone(api_key=PINECONE_API_KEY)
+pinecone.init(api_key=PINECONE_API_KEY, environment="us-east-1")  # Adjust environment if needed
 
 # ✅ Define Pinecone Index Name
 INDEX_NAME = "langchainvector"
 
 # ✅ Check if the Pinecone index exists; if not, create it
-existing_indexes = pc.list_indexes().names()
+existing_indexes = pinecone.list_indexes()
 if INDEX_NAME not in existing_indexes:
     st.info("ℹ️ Creating a new Pinecone index...")
-    pc.create_index(
+    pinecone.create_index(
         name=INDEX_NAME,
         dimension=1536,  # OpenAI embedding size
         metric="cosine",
-        spec=ServerlessSpec(cloud="aws", region="us-east-1"),
+        spec=pinecone.ServerlessSpec(cloud="aws", region="us-east-1"),
     )
     time.sleep(2)  # Wait for index creation
     st.success("✅ Pinecone index created successfully!")
@@ -78,7 +78,7 @@ def process_and_store_pdfs(pdf_files):
     chunks = split_docs(documents)
 
     # Initialize OpenAI embeddings
-    embeddings = OpenAIEmbeddings(openai_api_key=OPENAI_API_KEY)
+    embeddings = OpenAIEmbeddings()
 
     # Store in Pinecone
     vector_store = PineconeVectorStore.from_documents(
@@ -92,7 +92,7 @@ def answer_question_with_references(question):
     """Retrieves the best matching answer from stored PDFs or uses OpenAI if no context is found."""
     try:
         # Initialize OpenAI embeddings
-        embeddings = OpenAIEmbeddings(openai_api_key=OPENAI_API_KEY)
+        embeddings = OpenAIEmbeddings()
 
         # Load Pinecone vector store
         vector_store = PineconeVectorStore.from_existing_index(index_name=INDEX_NAME, embedding=embeddings)
