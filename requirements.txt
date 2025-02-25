@@ -1,0 +1,6 @@
+streamlit
+PyPDF2
+pinecone-client
+openai
+langchain
+google-generativeai
