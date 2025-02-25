@@ -4,3 +4,4 @@ pinecone-client
 openai
 langchain
 google-generativeai
+python-dotenv
