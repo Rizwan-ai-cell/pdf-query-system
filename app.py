@@ -174,4 +174,4 @@ if st.button("🔎 Get Answer"):
             for ref in references:
                 st.write(f"- {ref}")
     else:
-        st.warning("⚠️ Please enter a question.")
+        st.warning("⚠️ Please enter a query.")
