@@ -1,37 +1,47 @@
-# 📄 PDF Query System using Gemini API & Pinecone
+# 📄 PDF Query System using OpenAI API & Pinecone
 
-This project is a **PDF-based AI query system** that allows users to upload PDFs, store their embeddings in **Pinecone (vector database)**, and query them using **Google Gemini API** to retrieve relevant answers with references.
+An **AI-powered PDF query system** that allows users to upload PDF files, store their embeddings in **Pinecone**, and ask questions from the documents using **OpenAI's GPT models**. Built entirely using **Streamlit** for a smooth and interactive experience.
 
-## 🚀 Featuresfgh
-- 📂 Upload **multiple PDFs**
-- 🔎 Store and search document embeddings in **Pinecone**
-- 🧠 Use **Gemini API** for answering queries
-- 🔐 Full authentication (User Registration, Login, Logout, Password Reset)
-- 🌐 **Flask-based** backend with **Streamlit** frontend
+---
 
+## 🚀 Features
 
-📚 Usage
-Upload PDFs through the web interface.
-The system extracts text and generates embeddings.
-Store embeddings in Pinecone.
-Ask questions, and the system retrieves the most relevant answers using the Gemini API.
+- 📂 Upload and process multiple PDF files
+- 🔎 Store and search PDF content using Pinecone vector database
+- 🧠 Get AI-generated answers using OpenAI (GPT-3.5 / GPT-4)
+- 📚 Get references to the most relevant PDF sources
+- 🧱 Built with **Streamlit** – no backend required!
 
-🔧 Technologies Used
-Python (Flask, Streamlit)
-Google Gemini API (LLM)
-Pinecone (Vector Database)
-LangChain (for embedding generation)
-PyMuPDF / pdfplumber (for PDF processing)
-Authentication (Flask-Login, Flask-SQLAlchemy)
+---
 
-📌 TODO
- Improve accuracy with RAG (Retrieval-Augmented Generation)
- Add file deletion and management features
- Deploy on Render / AWS / Google Cloud
- 
-🤝 Contributing
-Feel free to fork this repository and submit a pull request!
+## 📚 How It Works
 
-🔗 Connect with Me
-📧 Email: amrizwan175@gmail.com
-🔗 LinkedIn: https://www.linkedin.com/in/rizwan-ali-ai/
+1. **Upload PDFs** through the Streamlit UI.
+2. PDFs are **parsed, chunked**, and **embedded** using OpenAI Embeddings.
+3. Embeddings are stored in **Pinecone** for semantic search.
+4. When a question is asked:
+   - Relevant chunks are retrieved from Pinecone.
+   - Context is passed to OpenAI GPT to generate a **concise answer**.
+   - Answer includes **references** to original PDF sections.
+
+---
+
+## 🛠️ Tech Stack
+
+| Technology     | Purpose                             |
+|----------------|-------------------------------------|
+| Streamlit      | UI / Frontend                       |
+| OpenAI API     | Embedding + GPT-3.5/4-based answers |
+| Pinecone       | Vector database for similarity search |
+| LangChain      | Text splitting, QA chain management |
+| PyPDFLoader    | PDF parsing and text extraction     |
+| Python         | Core programming language           |
+
+---
+
+## ⚙️ Installation & Setup
+
+### 1. Clone the Repository
+```bash
+git clone https://github.com/yourusername/pdf-query-openai.git
+cd pdf-query-openai
