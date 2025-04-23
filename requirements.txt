@@ -3,7 +3,6 @@ PyPDF2
 pinecone
 openai
 langchain
-google-generativeai
 python-dotenv
 langchain_openai
 langchain_community
