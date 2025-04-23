@@ -65,7 +65,7 @@ def load_pdfs(pdf_files):
 # ✅ Function to Split Documents into Chunks
 def split_docs(documents):
     """Splits documents into smaller chunks for better retrieval."""
-    text_splitter = RecursiveCharacterTextSplitter(chunk_size=1000, chunk_overlap=100)
+    text_splitter = RecursiveCharacterTextSplitter(chunk_size=800, chunk_overlap=200)
     return text_splitter.split_documents(documents)
 
 # ✅ Function to Process PDFs and Store in Pinecone
